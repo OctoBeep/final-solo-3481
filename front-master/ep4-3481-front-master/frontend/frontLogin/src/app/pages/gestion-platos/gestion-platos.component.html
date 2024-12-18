@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <h2>Gestión de Platos</h2>
+
+   
+    <!-- Leyenda informativa sobre la consulta del ID -->
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+      <i class="bi bi-info-circle-fill me-2" style="font-size: 1.5rem;"></i>
+      <div>
+        <strong>Consulta el ID en la base de datos</strong> para filtrar únicamente los platos que deseas obtener.
+      </div>
+    </div>
+
+  <!-- Formulario de búsqueda -->
+  <div class="mb-4">
+    <label for="idBusqueda">Buscar por ID:</label>
+    <input type="text" id="idBusqueda" class="form-control" [(ngModel)]="idBusqueda" placeholder="Ingrese el ID del plato">
+    <button class="btn btn-primary mt-2" (click)="buscarPlato()">Buscar</button>
+  </div>
+
+  <!-- Botón para alternar el formulario -->
+  <button class="btn btn-success mb-3" (click)="toggleFormulario()">
+    {{ mostrarFormulario ? 'Cancelar' : 'Agregar Nuevo Plato' }}
+  </button>
+
+  <!-- Formulario para agregar o editar un plato -->
+  <div *ngIf="mostrarFormulario" class="mb-4">
+    <h4>{{ editarModo ? 'Editar Plato' : 'Agregar Nuevo Plato' }}</h4>
+    <form (ngSubmit)="agregarPlato()" #platoForm="ngForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" class="form-control"
+               [(ngModel)]="nuevoPlato.nombre" name="nombre"
+               required minlength="3" #nombre="ngModel">
+        <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+          El nombre debe tener al menos 3 caracteres.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ingredientes">Ingredientes (separados por comas)</label>
+        <input type="text" id="ingredientes" class="form-control"
+               [(ngModel)]="ingredientesTexto" name="ingredientes"
+               required #ingredientes="ngModel">
+        <div *ngIf="ingredientes.invalid && ingredientes.touched" class="text-danger">
+          Los ingredientes son requeridos.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" class="form-control"
+               [(ngModel)]="nuevoPlato.precio" name="precio"
+               required min="0" #precio="ngModel">
+        <div *ngIf="precio.invalid && precio.touched" class="text-danger">
+          El precio debe ser un número mayor o igual a 0.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!platoForm.form.valid">
+        {{ editarModo ? 'Actualizar' : 'Agregar' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabla de platos -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ingredientes</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plato of platos">
+        <td>{{ plato.nombre }}</td>
+        <td>{{ plato.ingredientes.join(', ') }}</td>
+        <td>{{ plato.precio | currency }}</td>
+        <td>
+          <button *ngIf="plato._id" class="btn btn-warning mr-2" (click)="editarPlato(plato._id)">
+            Editar
+          </button>
+          <button *ngIf="plato._id" class="btn btn-danger" (click)="eliminarPlato(plato._id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

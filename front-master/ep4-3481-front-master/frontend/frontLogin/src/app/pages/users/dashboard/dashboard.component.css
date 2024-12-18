@@ -1,0 +1,70 @@
+/* Estilos del sidebar */
+#sidebar {
+  height: 100vh;
+  background-color: #343a40;
+  color: white;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#sidebar .sidebar-header h4 {
+  text-align: center;
+  color: #f8f9fa;
+  font-weight: bold;
+  margin-bottom: 30px; /* Espacio debajo del título */
+}
+
+/* Estilo de la lista de botones */
+.nav-buttons {
+  width: 100%; /* Hace que ocupe todo el ancho del sidebar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo de los botones */
+#sidebar .btn {
+  background-color: #007bff; /* Azul */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center; /* Centrar texto */
+  border-radius: 5px;
+  border: none;
+  padding: 15px;
+  transition: all 0.3s;
+  width: 80%; /* Hace que los botones sean más pequeños y centrados */
+  margin-bottom: 15px; /* Espacio entre los botones */
+}
+
+#sidebar .btn:hover {
+  background-color: #0056b3; /* Azul oscuro */
+  cursor: pointer;
+}
+
+#sidebar .btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+/* Estilos del contenido principal */
+main {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  min-height: 100vh; /* Asegura que el contenido principal tenga altura completa */
+}
+
+/* Añadir un efecto suave de sombra */
+#sidebar .nav-item button {
+  transition: box-shadow 0.2s ease;
+}
+
+#sidebar .nav-item button:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

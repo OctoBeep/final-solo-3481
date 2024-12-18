@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <h2>Gestión de Categorías</h2>
+
+  <!-- Botón para mostrar/ocultar el formulario de agregar -->
+  <button class="btn btn-success mb-3" (click)="toggleFormulario()">
+    {{ mostrarFormulario ? 'Cancelar' : 'Agregar Nueva Categoría' }}
+  </button>
+
+  <!-- Formulario para agregar o editar categoría -->
+<div *ngIf="mostrarFormulario" class="mb-4">
+  <h4>{{ editarModo ? 'Editar Categoría' : 'Agregar Nueva Categoría' }}</h4>
+  <form (ngSubmit)="agregarCategoria()" #categoriaForm="ngForm">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" class="form-control"
+             [(ngModel)]="nuevaCategoria.nombre" name="nombre"
+             required minlength="3" #nombre="ngModel">
+      <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+        El nombre es obligatorio y debe tener al menos 3 caracteres.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input type="text" id="descripcion" class="form-control"
+             [(ngModel)]="nuevaCategoria.descripcion" name="descripcion"
+             required minlength="5" #descripcion="ngModel">
+      <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+        La descripción es obligatoria y debe tener al menos 5 caracteres.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!categoriaForm.form.valid">
+      {{ editarModo ? 'Actualizar' : 'Agregar' }}
+    </button>
+  </form>
+</div>
+
+
+  <!-- Formulario de edición separado -->
+  <div *ngIf="editarCategoriaId" class="mb-4">
+    <h4>Editar Categoría</h4>
+    <form (ngSubmit)="editarCategoriaSubmit()" #editarForm="ngForm">
+      <div class="form-group">
+        <label for="editarNombre">Nombre</label>
+        <input type="text" id="editarNombre" class="form-control"
+               [(ngModel)]="categoriaEditada.nombre" name="nombre"
+               required minlength="3" #editarNombre="ngModel">
+        <div *ngIf="editarNombre.invalid && editarNombre.touched" class="text-danger">
+          El nombre es obligatorio y debe tener al menos 3 caracteres.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="editarDescripcion">Descripción</label>
+        <input type="text" id="editarDescripcion" class="form-control"
+               [(ngModel)]="categoriaEditada.descripcion" name="descripcion"
+               required minlength="5" #editarDescripcion="ngModel">
+        <div *ngIf="editarDescripcion.invalid && editarDescripcion.touched" class="text-danger">
+          La descripción es obligatoria y debe tener al menos 5 caracteres.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!editarForm.form.valid">
+        Actualizar
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabla de categorías -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias">
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.descripcion }}</td>
+        <td>
+          <!-- Botón para editar categoría -->
+          <button *ngIf="categoria._id" class="btn btn-warning mr-2" (click)="editarCategoria(categoria._id)">
+            Editar
+          </button>
+
+          <!-- Botón para eliminar categoría -->
+          <button *ngIf="categoria._id" class="btn btn-danger" (click)="eliminarCategoria(categoria._id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

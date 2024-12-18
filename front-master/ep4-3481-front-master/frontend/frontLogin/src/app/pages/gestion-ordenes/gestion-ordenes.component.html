@@ -1,0 +1,96 @@
+<div class="container mt-4">
+    <h2>Gestión de Órdenes</h2>
+  
+    <!-- Leyenda informativa sobre la consulta del ID -->
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+      <i class="bi bi-info-circle-fill me-2" style="font-size: 1.5rem;"></i>
+      <div>
+        <strong>Consulta el ID en la base de datos</strong> para filtrar únicamente las órdenes que deseas obtener.
+      </div>
+    </div>
+
+    <p class="mb-4">Consulta la lista de platos disponibles para tomar una orden.</p>
+  
+    <!-- Barra de búsqueda por ID -->
+    <div class="form-group">
+      <label for="idBusqueda">Buscar por ID</label>
+      <input type="text" id="idBusqueda" class="form-control" [(ngModel)]="orderIdBusqueda" placeholder="Introduce el ID de la orden">
+      <button class="btn btn-info mt-2" (click)="buscarOrden()">Buscar</button>
+    </div>
+  
+    <!-- Botón para mostrar/ocultar el formulario -->
+    <button class="btn btn-success mb-3" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cancelar' : 'Agregar Nueva Orden' }}
+    </button>
+  
+    <!-- Formulario para agregar una nueva orden o editar una existente -->
+    <div *ngIf="mostrarFormulario" class="mb-4">
+      <h4>{{ editarModo ? 'Editar Orden' : 'Agregar Nueva Orden' }}</h4>
+      <form (ngSubmit)="agregarOrden()" #orderForm="ngForm">
+        <!-- Input de platos -->
+        <div class="form-group" *ngFor="let plato of nuevaOrden.platos; let i = index">
+          <label for="plato{{i}}">Plato {{i + 1}}</label>
+          <input type="text" id="plato{{i}}" class="form-control"
+                 [(ngModel)]="plato.nombre" name="nombre{{i}}"
+                 required #nombre="ngModel">
+          <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+            El nombre del plato es requerido.
+          </div>
+          
+          <input type="number" id="cantidad{{i}}" class="form-control"
+                 [(ngModel)]="plato.cantidad" name="cantidad{{i}}"
+                 required #cantidad="ngModel">
+          <div *ngIf="cantidad.invalid && cantidad.touched" class="text-danger">
+            La cantidad es requerida.
+          </div>
+        </div>
+  
+        <!-- Estado de la orden -->
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <select id="estado" class="form-control"
+                  [(ngModel)]="nuevaOrden.estado" name="estado" required>
+            <option value="pendiente">Pendiente</option>
+            <option value="entregado">Entregado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="!orderForm.form.valid">
+          {{ editarModo ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </form>
+    </div>
+  
+    <!-- Tabla de órdenes -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Platos</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>
+            <ul>
+              <li *ngFor="let plato of order.platos">
+                {{ plato.nombre }} (Cantidad: {{ plato.cantidad }})
+              </li>
+            </ul>
+          </td>
+          <td>{{ order.estado }}</td>
+          <td>
+            <button *ngIf="order._id" class="btn btn-warning mr-2" (click)="editarOrden(order._id)">
+              Editar
+            </button>
+            <button *ngIf="order._id" class="btn btn-danger" (click)="eliminarOrden(order._id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,66 @@
+/* Fondo de la página */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;  /* Fondo gris claro */
+  }
+  
+  .login-form {
+    background-color: #2c3e50;  /* Fondo oscuro para el formulario */
+    color: white;
+    padding: 30px;
+    border-radius: 10px;  /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+    width: 100%;
+    max-width: 400px;  /* Ancho máximo */
+  }
+  
+  /* Título */
+  .login-form h2 {
+    margin-bottom: 20px;
+    color: #ecf0f1;  /* Color claro para el título */
+    font-size: 24px;
+  }
+  
+  /* Estilo para los campos de formulario */
+  .form-group label {
+    color: #ecf0f1;  /* Color claro para las etiquetas */
+  }
+  
+  .form-group input {
+    border: 1px solid #bdc3c7;  /* Borde gris suave */
+    background-color: #34495e;  /* Fondo gris oscuro en los inputs */
+    color: white;  /* Texto blanco en los inputs */
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;  /* Espacio entre los campos */
+  }
+  
+  /* Estilo del botón */
+  button {
+    background-color: #3498db;  /* Azul para el botón */
+    color: white;  /* Texto blanco */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;  /* Transición suave al pasar el mouse */
+  }
+  
+  button:hover {
+    background-color: #2980b9;  /* Azul más oscuro al pasar el mouse */
+  }
+  
+  /* Mensaje de error */
+  .alert-danger {
+    background-color: #e74c3c;  /* Rojo para el mensaje de error */
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  

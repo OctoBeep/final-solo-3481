@@ -1,0 +1,78 @@
+/* Estilos para los botones */
+button {
+    margin-top: 10px;
+  }
+  
+  /* Estilo para los botones de agregar y actualizar */
+  button.btn-primary {
+    margin-top: 15px;
+  }
+  
+  /* Estilo para los botones de editar y eliminar */
+  button.btn-warning,
+  button.btn-danger {
+    margin-top: 5px;
+  }
+  
+  /* Estilo para el formulario */
+  form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Estilo para los mensajes de validación */
+  .text-danger {
+    font-size: 12px;
+    color: red;
+  }
+  
+  /* Estilo para los mensajes de confirmación */
+  .alert {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la tabla */
+  .table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Estilo para las filas de la tabla */
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Estilo para los botones dentro de la tabla */
+  .table .btn {
+    margin-right: 5px;
+  }
+  
+  /* Estilo para el contenedor */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* Estilo para el encabezado */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el título del formulario */
+  h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  

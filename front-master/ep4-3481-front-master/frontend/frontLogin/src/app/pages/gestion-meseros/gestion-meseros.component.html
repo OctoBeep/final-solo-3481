@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <h2>Gestión de Meseros</h2>
+
+  <!-- Botón para mostrar/ocultar el formulario -->
+  <button class="btn btn-success mb-3" (click)="toggleFormulario()">
+    {{ mostrarFormulario ? 'Cancelar' : 'Agregar Nuevo Mesero' }}
+  </button>
+
+  <!-- Formulario para agregar un nuevo mesero o editar uno existente -->
+  <div *ngIf="mostrarFormulario" class="mb-4">
+    <h4>{{ editarModo ? 'Editar Mesero' : 'Agregar Nuevo Mesero' }}</h4>
+    <form (ngSubmit)="agregarMesero()" #meseroForm="ngForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" class="form-control"
+               [(ngModel)]="nuevoMesero.nombre" name="nombre"
+               required minlength="5" #nombre="ngModel">
+        <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+          El nombre debe tener al menos 5 caracteres.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" class="form-control"
+               [(ngModel)]="nuevoMesero.apellido" name="apellido"
+               required minlength="5" #apellido="ngModel">
+        <div *ngIf="apellido.invalid && apellido.touched" class="text-danger">
+          El apellido debe tener al menos 5 caracteres.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control"
+               [(ngModel)]="nuevoMesero.email" name="email"
+               required email #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger">
+          El correo electrónico debe ser válido y contener el carácter '@'.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dni">DNI</label>
+        <input type="text" id="dni" class="form-control"
+               [(ngModel)]="nuevoMesero.dni" name="dni"
+               required minlength="8" maxlength="8" pattern="^[0-9]{8}$"
+               #dni="ngModel">
+        <div *ngIf="dni.invalid && dni.touched" class="text-danger">
+          El DNI debe tener exactamente 8 dígitos.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!meseroForm.form.valid">
+        {{ editarModo ? 'Actualizar' : 'Agregar' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabla de meseros -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>DNI</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mesero of meseros">
+        <td>{{ mesero.nombre }}</td>
+        <td>{{ mesero.apellido }}</td>
+        <td>{{ mesero.email }}</td>
+        <td>{{ mesero.dni }}</td>
+        <td>
+          <!-- Botón para editar mesero -->
+          <button *ngIf="mesero._id" class="btn btn-warning mr-2" (click)="editarMesero(mesero._id)">
+            Editar
+          </button>
+
+          <!-- Botón para eliminar mesero -->
+          <button *ngIf="mesero._id" class="btn btn-danger" (click)="eliminarMesero(mesero._id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

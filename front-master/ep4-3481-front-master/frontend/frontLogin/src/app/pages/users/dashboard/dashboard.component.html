@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark text-white">
+      <div class="sidebar-header">
+        <h4>Gestión Tagliatore</h4>
+      </div>
+      <div class="nav-buttons">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <button class="btn w-100 my-2" [routerLink]="'/dashboard/gestion-platos'">Gestión de Platillos</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn w-100 my-2" [routerLink]="'/dashboard/gestion-clientes'">Gestión de Clientes</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn w-100 my-2" [routerLink]="'/dashboard/gestion-ordenes'">Gestión de Órdenes</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn w-100 my-2" [routerLink]="'/dashboard/gestion-categorias'">Gestión de Categorías</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn w-100 my-2" [routerLink]="'/dashboard/gestion-meseros'">Gestión de Meseros</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
+      <!-- Aquí se cargará el contenido de cada ruta -->
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

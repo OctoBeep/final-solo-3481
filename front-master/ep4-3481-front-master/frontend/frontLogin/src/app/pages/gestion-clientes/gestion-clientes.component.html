@@ -1,0 +1,104 @@
+<div class="container mt-4">
+    <h2>Gestión de Clientes</h2>
+  
+    <!-- Leyenda informativa sobre la consulta del ID -->
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+      <i class="bi bi-info-circle-fill me-2" style="font-size: 1.5rem;"></i>
+      <div>
+        <strong>Consulta el ID en la base de datos</strong> para filtrar unicamente los datos del cliente que deseas obtener.
+      </div>
+    </div>
+  
+    <!-- Barra de búsqueda por ID -->
+    <div class="form-group">
+      <label for="idBusqueda">Buscar por ID</label>
+      <input type="text" id="idBusqueda" class="form-control" [(ngModel)]="clienteIdBusqueda" placeholder="Introduce el ID del cliente">
+      <button class="btn btn-info mt-2" (click)="buscarCliente()">Buscar</button>
+    </div>
+  
+    <!-- Botón para mostrar/ocultar el formulario -->
+    <button class="btn btn-success mb-3" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cancelar' : 'Agregar Nuevo Cliente' }}
+    </button>
+  
+    <!-- Formulario para agregar un nuevo cliente o editar uno existente -->
+    <div *ngIf="mostrarFormulario" class="mb-4">
+      <h4>{{ editarModo ? 'Editar Cliente' : 'Agregar Nuevo Cliente' }}</h4>
+      <form (ngSubmit)="agregarCliente()" #clienteForm="ngForm">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" class="form-control"
+                 [(ngModel)]="nuevoCliente.nombre" name="nombre"
+                 required minlength="5" #nombre="ngModel">
+          <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+            El nombre debe tener al menos 5 caracteres.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control"
+                 [(ngModel)]="nuevoCliente.email" name="email"
+                 required email #email="ngModel">
+          <div *ngIf="email.invalid && email.touched" class="text-danger">
+            El correo electrónico debe ser válido y contener el carácter '@'.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" class="form-control"
+                 [(ngModel)]="nuevoCliente.telefono" name="telefono"
+                 required minlength="9" maxlength="9" #telefono="ngModel">
+          <div *ngIf="telefono.invalid && telefono.touched" class="text-danger">
+            El teléfono debe tener exactamente 9 dígitos.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="dni">DNI</label>
+          <input type="text" id="dni" class="form-control"
+                 [(ngModel)]="nuevoCliente.dni" name="dni"
+                 required minlength="8" maxlength="8" pattern="^[0-9]{8}$"
+                 #dni="ngModel">
+          <div *ngIf="dni.invalid && dni.touched" class="text-danger">
+            El DNI debe tener exactamente 8 dígitos.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="!clienteForm.form.valid">
+          {{ editarModo ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </form>
+    </div>
+  
+    <!-- Tabla de clientes -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>DNI</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>{{ cliente.dni }}</td>
+          <td>
+            <button *ngIf="cliente._id" class="btn btn-warning mr-2" (click)="editarCliente(cliente._id)">
+              Editar
+            </button>
+            <button *ngIf="cliente._id" class="btn btn-danger" (click)="eliminarCliente(cliente._id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
